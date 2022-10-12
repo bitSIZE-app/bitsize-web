@@ -20,6 +20,14 @@ export const { styled, createTheme } = createStitches({
             4: '32px',
             5: '40px',
             6: '48px'
+        },
+        fontSizes: {
+            xs: '10px',
+            s: '12px',
+            m: '16px',
+            l: '24px',
+            xl: '36px',
+            xxl: '48px'
         }
     }
 });

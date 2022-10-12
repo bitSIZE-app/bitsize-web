@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@prisma/client': ^4.4.0
   '@radix-ui/colors': ^0.1.8
+  '@radix-ui/react-icons': ^1.1.1
   '@radix-ui/react-scroll-area': ^1.0.0
   '@stitches/react': ^1.2.8
   '@tanstack/react-query': ^4.10.0
@@ -28,6 +29,7 @@ specifiers:
 dependencies:
   '@prisma/client': 4.4.0_prisma@4.4.0
   '@radix-ui/colors': 0.1.8
+  '@radix-ui/react-icons': 1.1.1_react@18.2.0
   '@radix-ui/react-scroll-area': 1.0.0_biqbaboplfbrettd7655fr4n2y
   '@stitches/react': 1.2.8_react@18.2.0
   '@tanstack/react-query': 4.10.3_biqbaboplfbrettd7655fr4n2y
@@ -314,6 +316,14 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
       '@babel/runtime': 7.19.4
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-icons/1.1.1_react@18.2.0:
+    resolution: {integrity: sha512-xc3wQC59rsFylVbSusQCrrM+6695ppF730Q6yqzhRdqDcRNWIm2R6ngpzBoSOQMcwnq4p805F+Gr7xo4fmtN1A==}
+    peerDependencies:
+      react: ^16.x || ^17.x || ^18.x
+    dependencies:
       react: 18.2.0
     dev: false
 
