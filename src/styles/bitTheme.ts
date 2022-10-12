@@ -19,7 +19,9 @@ export const { styled, createTheme } = createStitches({
             3: '24px',
             4: '32px',
             5: '40px',
-            6: '48px'
+            6: '48px',
+            7: '56px',
+            8: '64px'
         },
         fontSizes: {
             xs: '10px',
@@ -28,6 +30,12 @@ export const { styled, createTheme } = createStitches({
             l: '24px',
             xl: '36px',
             xxl: '48px'
+        },
+        radii: {
+            1: '2px',
+            2: '4px',
+            3: '6px',
+            4: '8px'
         }
     }
 });
