@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { BellIcon, FrameIcon, HomeIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { BellIcon, FrameIcon, HomeIcon, MagnifyingGlassIcon, RocketIcon, TimerIcon } from '@radix-ui/react-icons';
 
 import logo from '../assets/bitSIZE-logo.svg'
 import { styled } from '../styles/bitTheme';
@@ -33,6 +33,8 @@ export function Sidebar() {
                 <NavItem active={false} icon={<MagnifyingGlassIcon />} label="Search" />
                 <NavItem active={false} icon={<FrameIcon />} label="Explore" />
                 <NavItem active={false} icon={<BellIcon />} label="Notifications" />
+                <NavItem active={false} icon={<TimerIcon />} label="Subscriptions" />
+                <NavItem active={false} icon={<RocketIcon />} label="Donations" />
                 <HelloUser />
             </nav>
         </StyledSidebar>
