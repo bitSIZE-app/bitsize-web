@@ -5,11 +5,22 @@ import { styled } from '../styles/bitTheme';
 
 const StyledHelloUser = styled('div', {
     alignItems: 'center',
+    cursor: 'pointer',
     display: 'flex',
     marginTop: '$8',
-    width: '100%'
+    padding: '$1',
+    width: '100%',
 
+    '.username': {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%'
+    },
 
+    '&:hover': {
+        backgroundColor: '$mauve3',
+        borderRadius: '$4'
+    },
 })
 
 const Avatar = styled(AvatarPrimitive.Root, {
@@ -18,7 +29,7 @@ const Avatar = styled(AvatarPrimitive.Root, {
     display: 'inline-flex',
     height: '$fontSizes$xxl',
     justifyContent: 'center',
-    marginRight: 'calc($space$1/2)',
+    marginRight: 'calc($space$2/2)',
     overflow: 'hidden',
     verticalAlign: 'middle',
     width: '$fontSizes$xxl'
@@ -32,7 +43,6 @@ const AvatarImage = styled(AvatarPrimitive.Image, {
 });
 
 const MenuButton = styled('div', {
-    cursor: 'pointer',
     marginLeft: 'auto'
 });
 
@@ -42,7 +52,10 @@ export function HelloUser () {
             <Avatar>
                 <AvatarImage src="https://avatars.dicebear.com/api/adventurer/david.svg"/>
             </Avatar>
-            @YoDavidO
+            <div className="username">
+                <span>David Ortiz</span>
+                <span>@YoDavidO</span>
+            </div>
             <MenuButton>
                 <DotsVerticalIcon />
             </MenuButton>
