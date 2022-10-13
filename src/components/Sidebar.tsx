@@ -9,8 +9,6 @@ import { NavItem } from './NavItem';
 import { HelloUser } from './HelloUser';
 
 const StyledSidebar = styled('div', {
-    backgroundColor: '$mauve1',
-    borderRight: '1px solid $mauve5',
     height: '100%',
     maxWidth: 240,
     minWidth: 240,

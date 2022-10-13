@@ -5,6 +5,7 @@ import { styled } from '../styles/bitTheme';
 
 const StyledHelloUser = styled('div', {
     alignItems: 'center',
+    color: '$mauve12',
     cursor: 'pointer',
     display: 'flex',
     marginTop: '$8',
