@@ -12,11 +12,17 @@ const StyledSidebar = styled('div', {
     height: '100%',
     maxWidth: 240,
     minWidth: 240,
-    padding: '$3',
-
+    padding: '0 $3',
+    'nav': {
+        display: 'flex',
+        flexDirection: 'column'
+    },
     '.logo': {
+        alignItems: 'center',
+        display: 'flex',
+        height: 70,
         marginBottom: '$8',
-        paddingLeft: '$1'
+        padding: '$3 $1'
     }
 });
 
@@ -25,7 +31,7 @@ export function Sidebar() {
         <StyledSidebar>
             <nav>
                 <div className="logo">
-                    <Image src={logo} width={103} height={31} />
+                    <Image src={logo} width={103} height={16} />
                 </div>
                 <NavItem active={true} icon={<HomeIcon />} label="Home" />
                 <NavItem active={false} icon={<MagnifyingGlassIcon />} label="Search" />

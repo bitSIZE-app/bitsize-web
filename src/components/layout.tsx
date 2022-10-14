@@ -1,7 +1,7 @@
-import { ReactElement } from 'react';
-import { styled } from '../styles/bitTheme';
+import {ReactElement, useEffect} from 'react';
+import {styled} from '../styles/bitTheme';
 
-import { Sidebar } from './Sidebar';
+import {Sidebar} from './Sidebar';
 import {PageHeader} from "./PageHeader";
 
 const StyledLayout = styled('div', {
@@ -18,16 +18,15 @@ const StyledMain = styled('main', {
     display: 'flex',
     flexDirection: 'column',
     maxWidth: 600,
-    padding: '0 $3',
     width: '100%'
 });
 
-export function Layout ({ children }:TProps) {
+export function Layout({children}: TProps) {
     return (
         <StyledLayout>
-            <Sidebar />
+            <Sidebar/>
             <StyledMain>
-                <PageHeader />
+                <PageHeader/>
                 {children}
             </StyledMain>
         </StyledLayout>
