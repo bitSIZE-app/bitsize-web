@@ -1,4 +1,4 @@
-import {ReactElement, useEffect} from 'react';
+import {ReactElement} from 'react';
 import {styled} from '../styles/bitTheme';
 
 import {Sidebar} from './Sidebar';
@@ -12,7 +12,7 @@ const StyledLayout = styled('div', {
 });
 
 const StyledMain = styled('main', {
-    backgroundColor: '$mauve1',
+    backgroundColor: '$mauve2',
     borderLeft: '1px solid $mauve5',
     borderRight: '1px solid $mauve5',
     display: 'flex',

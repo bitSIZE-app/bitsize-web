@@ -1,10 +1,10 @@
 // src/server/router/index.ts
 import { router } from "../trpc";
 
-import { exampleRouter } from "./example";
+import { bitsRouter } from "./bitsRouter";
 
 export const appRouter = router({
-  example: exampleRouter,
+  bits: bitsRouter,
 });
 
 // export type definition of API

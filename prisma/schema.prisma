@@ -2,29 +2,29 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Example {
-    id String @id @default(cuid())
+  id String @id @default(cuid())
 }
 
-model Bitty {
-    id          String @id @default(cuid())
-    message     String
-    published   Boolean @default(false)
-    author      User? @relation(fields: [authorId], references: [id])
-    authorId    String?
+model Bit {
+  id        String  @id @default(cuid())
+  message   String
+  published Boolean @default(false)
+  author    User?   @relation(fields: [authorId], references: [id])
+  authorId  String?
 }
 
 model User {
-    id          String @id @default(cuid())
-    username    String @unique
-    name        String
-    bitties     Bitty[]
+  id       String @id @default(cuid())
+  username String @unique
+  name     String
+  bits     Bit[]
 }

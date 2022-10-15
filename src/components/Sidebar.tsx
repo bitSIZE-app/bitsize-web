@@ -34,7 +34,7 @@ export function Sidebar() {
                     <Image src={logo} width={103} height={16} />
                 </div>
                 <NavItem active={true} icon={<HomeIcon />} label="Home" />
-                <NavItem active={false} icon={<MagnifyingGlassIcon />} label="Search" />
+                <NavItem active={false} icon={<MagnifyingGlassIcon />} label="Search" onClickOverride={() => console.log('open search overlay')} />
                 <NavItem active={false} icon={<FrameIcon />} label="Explore" />
                 <NavItem active={false} icon={<BellIcon />} label="Notifications" />
                 <NavItem active={false} icon={<TimerIcon />} label="Subscriptions" />
