@@ -1,5 +1,6 @@
 import {
     mauve,
+    mauveA,
     mauveDark,
     plum,
     plumDark
@@ -11,6 +12,7 @@ export const { styled, createTheme, getCssText } = createStitches({
     theme: {
         colors: {
             ...mauve,
+            ...mauveA,
             ...plum,
         },
         space: {
