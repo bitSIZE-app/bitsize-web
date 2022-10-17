@@ -18,13 +18,22 @@ model Bit {
   id        String  @id @default(cuid())
   message   String
   published Boolean @default(false)
+  publishedOn String
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
 }
 
 model User {
-  id       String @id @default(cuid())
-  username String @unique
-  name     String
-  bits     Bit[]
+  id        String     @id @default(cuid())
+  username  String     @unique
+  name      String
+  bits      Bit[]
+  followers Follower[]
+}
+
+model Follower {
+  id         String @id @default(cuid())
+  userId     String
+  follower   User   @relation(fields: [followerId], references: [id])
+  followerId String
 }

@@ -1,7 +1,8 @@
-import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import { DotsVerticalIcon } from '@radix-ui/react-icons';
+import {DotsVerticalIcon} from '@radix-ui/react-icons';
 
-import { styled } from '../styles/bitTheme';
+import {styled} from '../styles/bitTheme';
+
+import {Avatar} from "./Avatar";
 
 const StyledHelloUser = styled('div', {
     alignItems: 'center',
@@ -12,7 +13,10 @@ const StyledHelloUser = styled('div', {
     padding: '$1',
     width: '100%',
 
-    '.username': {
+    '.hello-avatar': {
+        marginRight: 'calc($space$2/2)'
+    },
+    '.hello-username': {
         display: 'flex',
         flexDirection: 'column',
         width: '100%'
@@ -24,41 +28,21 @@ const StyledHelloUser = styled('div', {
     },
 })
 
-const Avatar = styled(AvatarPrimitive.Root, {
-    alignItems: 'center',
-    borderRadius: '100%',
-    display: 'inline-flex',
-    height: '$fontSizes$xxl',
-    justifyContent: 'center',
-    marginRight: 'calc($space$2/2)',
-    overflow: 'hidden',
-    verticalAlign: 'middle',
-    width: '$fontSizes$xxl'
-});
-
-const AvatarImage = styled(AvatarPrimitive.Image, {
-    borderRadius: 'inherit',
-    height: '100%',
-    objectFit: 'cover',
-    width: '100%'
-});
 
 const MenuButton = styled('div', {
     marginLeft: 'auto'
 });
 
-export function HelloUser () {
+export function HelloUser() {
     return (
         <StyledHelloUser>
-            <Avatar>
-                <AvatarImage src="https://avatars.dicebear.com/api/adventurer/david.svg"/>
-            </Avatar>
-            <div className="username">
+            <Avatar className="hello-avatar" imgUrl="https://avatars.dicebear.com/api/adventurer/david.svg"/>
+            <div className="hello-username">
                 <span>David Ortiz</span>
                 <span>@YoDavidO</span>
             </div>
             <MenuButton>
-                <DotsVerticalIcon />
+                <DotsVerticalIcon/>
             </MenuButton>
         </StyledHelloUser>
     )

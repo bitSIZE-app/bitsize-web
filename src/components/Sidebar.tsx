@@ -9,10 +9,11 @@ import { NavItem } from './NavItem';
 import { HelloUser } from './HelloUser';
 
 const StyledSidebar = styled('div', {
-    height: '100%',
     maxWidth: 240,
     minWidth: 240,
     padding: '0 $3',
+    position: 'fixed',
+
     'nav': {
         display: 'flex',
         flexDirection: 'column'

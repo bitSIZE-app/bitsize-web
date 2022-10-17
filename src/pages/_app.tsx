@@ -1,9 +1,15 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
 // src/pages/_app.tsx
 import {globalCss} from '@stitches/react';
-import type {AppType} from "next/app";
 
+import type {AppType} from "next/app";
 import "../styles/globals.css"; // TODO: Remove the important on body->background color and let selected theme handle it.
+
 import {trpc} from "../utils/trpc";
+
+dayjs.extend(relativeTime);
 
 const globalStyles = globalCss({
     '*': {

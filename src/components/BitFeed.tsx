@@ -49,12 +49,7 @@ export function BitFeed() {
 
     return (
         <StyledBitFeed>
-            <StyledViewport>
-                {data?.TEST_FEED.map(item => <Bit key={item.id} bit={item} />)}
-            </StyledViewport>
-            <StyledScrollbar>
-                <StyledThumb />
-            </StyledScrollbar>
+            {data?.TEST_FEED.map(item => <Bit key={item.id} bit={item} />)}
         </StyledBitFeed>
     )
 }

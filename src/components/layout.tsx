@@ -8,11 +8,10 @@ const StyledLayout = styled('div', {
     display: 'flex',
     height: '100%',
     justifyContent: 'center',
-    width: '100%'
 });
 
 const StyledMain = styled('main', {
-    backgroundColor: '$mauve2',
+    backgroundColor: '$mauve3',
     borderLeft: '1px solid $mauve5',
     borderRight: '1px solid $mauve5',
     display: 'flex',
@@ -21,10 +20,17 @@ const StyledMain = styled('main', {
     width: '100%'
 });
 
+const SidebarContainer = styled('div', {
+    position: 'relative',
+    width: 240
+});
+
 export function Layout({children}: TProps) {
     return (
         <StyledLayout>
-            <Sidebar/>
+            <SidebarContainer>
+                <Sidebar/>
+            </SidebarContainer>
             <StyledMain>
                 <PageHeader/>
                 {children}
