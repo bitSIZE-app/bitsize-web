@@ -19,7 +19,14 @@ const StyledHelloUser = styled('div', {
     '.hello-username': {
         display: 'flex',
         flexDirection: 'column',
-        width: '100%'
+        width: '100%',
+
+        '.hello-fullname': {
+            maxWidth: 90,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap'
+        }
     },
 
     '&:hover': {
@@ -36,9 +43,11 @@ const MenuButton = styled('div', {
 export function HelloUser() {
     return (
         <StyledHelloUser>
-            <Avatar className="hello-avatar" imgUrl="https://avatars.dicebear.com/api/adventurer/david.svg"/>
+            <div className="hello-avatar-wrapper">
+                <Avatar className="hello-avatar" imgUrl="https://avatars.dicebear.com/api/adventurer/david.svg"/>
+            </div>
             <div className="hello-username">
-                <span>David Ortiz</span>
+                <span className="hello-fullname">David Ortiz</span>
                 <span>@YoDavidO</span>
             </div>
             <MenuButton>

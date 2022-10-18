@@ -3,6 +3,7 @@ import * as AvatarPrimitive from '@radix-ui/react-avatar';
 
 const AvatarRoot = styled(AvatarPrimitive.Root, {
     alignItems: 'center',
+    backgroundColor: '$plum5',
     borderRadius: '100%',
     display: 'inline-flex',
     height: '$fontSizes$xxl',

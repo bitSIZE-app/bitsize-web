@@ -8,34 +8,41 @@ import { Link } from './Link';
 const StyledBit = styled('div', {
     backgroundColor: 'white',
     borderBottom: '1px solid $mauve5',
-    display: 'flex',
     padding: '$3 $2',
     position: 'relative',
     width: '100%',
 
-    '.bit-avatar': {
-        marginRight: '$1',
+    '.bit-header': {
+        alignItems: 'center',
+        display: 'flex',
+        fontSize: '$s',
         position: 'relative',
-        zIndex: 2
+        zIndex: 3,
+
+        '.bit-avatar': {
+            marginRight: '$1',
+
+        },
+
+        '.bit-date': {
+            color: '$mauve9',
+        }
+    },
+    '.bit-media': {
+        position: 'relative',
+        zIndex: 4
     },
     '.bit-body': {
+        marginTop: '$2',
+        pointerEvents: 'none',
         position: 'relative',
         width: '100%',
-        zIndex: 1,
-
-        '.bit-header': {
-            display: 'flex',
-            fontSize: '$s',
-
-            '.bit-date': {
-                color: '$mauve9',
-                marginLeft: 'calc($1/2)'
-            }
-        },
+        zIndex: 2,
     },
 
     '.bit-actions': {
         display: 'flex',
+
         width: '100%'
     },
 
@@ -45,7 +52,7 @@ const StyledBit = styled('div', {
         position: 'absolute',
         top: 0,
         width: '100%',
-        zIndex: 0,
+        zIndex: 1,
     },
 
     '&:hover': {
@@ -81,21 +88,25 @@ export function Bit({bit}: TProps) {
     const onClick = () => {
         console.log('go to bit page', bit.id);
     }
+
     return (
         <StyledBit>
             <div className="bit-clickOverlay" onClick={onClick}></div>
-            <Avatar className="bit-avatar" imgUrl={bit.author.avatarUrl} />
-            <div className="bit-body">
-                <div className="bit-header">
-                    <Link href={`/bit/${bit.author.username.toLowerCase()}`}>@{bit.author.username}</Link> <span className="bit-date">{dayjs(bit.publishedOn).fromNow()}</span>
+            <div className="bit-header">
+                <Avatar className="bit-avatar" imgUrl={bit.author.avatarUrl} />
+                <div className="bit-byline">
+                    <Link href={`/bit/${bit.author.username.toLowerCase()}`}>@{bit.author.username}</Link>
+                    <div className="bit-date">{dayjs(bit.publishedOn).fromNow()}</div>
                 </div>
+            </div>
+            <div className="bit-media">
                 {bit.media.id && <BitMedia {...bit.media} />}
-                <div className="bit-message">
-                    {bit.message}
-                </div>
-                <div className="bit-actions">
+            </div>
+            <div className="bit-body">
+                {bit.message}
+            </div>
+            <div className="bit-actions">
 
-                </div>
             </div>
         </StyledBit>
     )

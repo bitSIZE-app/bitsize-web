@@ -3,7 +3,7 @@ import { styled } from '../styles/bitTheme';
 const StyledBitMedia = styled('div', {
     borderRadius: '$4',
     cursor: 'pointer',
-    margin: '$2 0',
+    margin: '$2 0 0',
     maxHeight: 600,
     overflow: 'hidden',
     width: '100%',
