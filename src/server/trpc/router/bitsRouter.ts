@@ -8,7 +8,6 @@ export const bitsRouter = router({
     getAll: publicProcedure
         .input(z.object({authorId: z.string()}))
         .query(({ctx, input}) => {
-            console.log(input.authorId);
             return {
                 TEST_FEED
             };

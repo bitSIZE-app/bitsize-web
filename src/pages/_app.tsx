@@ -13,7 +13,6 @@ dayjs.extend(relativeTime);
 
 const globalStyles = globalCss({
     '*': {
-        color: '$mauve12',
         fontFamily: 'font-family: "Source Sans Pro", sans-serif'
     }
 })

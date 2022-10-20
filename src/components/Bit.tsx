@@ -3,7 +3,9 @@ import dayjs from 'dayjs';
 import {styled} from "../styles/bitTheme";
 import {Avatar} from "./Avatar";
 import { BitMedia } from './BitMedia';
+import { HoverCard } from './HoverCard';
 import { Link } from './Link';
+import { AvatarHoverCard } from './AvatarHoverCard';
 
 const StyledBit = styled('div', {
     backgroundColor: 'white',
@@ -17,7 +19,7 @@ const StyledBit = styled('div', {
         display: 'flex',
         fontSize: '$s',
         position: 'relative',
-        zIndex: 3,
+        zIndex: 4,
 
         '.bit-avatar': {
             marginRight: '$1',
@@ -30,7 +32,7 @@ const StyledBit = styled('div', {
     },
     '.bit-media': {
         position: 'relative',
-        zIndex: 4
+        zIndex: 3
     },
     '.bit-body': {
         marginTop: '$2',
@@ -73,8 +75,10 @@ type TProps = {
         author: {
             id: string;
             avatarUrl: string;
+            bio: string;
+            name: string;
             username: string;
-            verified: boolean;
+            verified?: boolean;
         },
         media: {
             id?: string;
@@ -93,7 +97,8 @@ export function Bit({bit}: TProps) {
         <StyledBit>
             <div className="bit-clickOverlay" onClick={onClick}></div>
             <div className="bit-header">
-                <Avatar className="bit-avatar" imgUrl={bit.author.avatarUrl} />
+                <AvatarHoverCard triggerClass="bit-avatar" user={bit.author} />
+
                 <div className="bit-byline">
                     <Link href={`/bit/${bit.author.username.toLowerCase()}`}>@{bit.author.username}</Link>
                     <div className="bit-date">{dayjs(bit.publishedOn).fromNow()}</div>
