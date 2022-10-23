@@ -2,38 +2,80 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-}
-
-model Example {
-  id String @id @default(cuid())
-}
-
-model Bit {
-  id        String  @id @default(cuid())
-  message   String
-  published Boolean @default(false)
-  publishedOn String
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  String?
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model User {
-  id        String     @id @default(cuid())
-  username  String     @unique
-  name      String
-  bits      Bit[]
-  followers Follower[]
+  id         String        @id @default(cuid())
+  avatar     String?
+  email      String        @unique
+  username   String        @unique
+  name       String
+  bio        String?
+  createdAt  DateTime      @default(now())
+  bits       Bit[]
+  rebits     RecycledBit[]
+  followers  Follows[]     @relation("follower")
+  following  Follows[]     @relation("following")
+  isAdmin    Boolean       @default(false)
+  isVerified Boolean       @default(false)
+  likes      Like[]
 }
 
-model Follower {
-  id         String @id @default(cuid())
-  userId     String
-  follower   User   @relation(fields: [followerId], references: [id])
-  followerId String
+model Follows {
+  follower    User     @relation("following", fields: [followerId], references: [id])
+  followerId  String
+  following   User     @relation("follower", fields: [followingId], references: [id])
+  followingId String
+  createAt    DateTime @default(now())
+
+  @@id([followerId, followingId])
+}
+
+model Bit {
+  id          String        @id @default(cuid())
+  author      User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
+  content     String
+  createdAt   DateTime      @default(now())
+  deleted     Boolean       @default(false)
+  tags        Tag[]
+  likes       Like[]
+  rebits      RecycledBit[]
+  replies     Bit[]         @relation("replies")
+  originalBit Bit?          @relation("replies", fields: [originalId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  originalId  String
+}
+
+model RecycledBit {
+  id        String   @id @default(cuid())
+  bit       Bit      @relation(fields: [bitId], references: [id], onDelete: Cascade)
+  bitId     String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now())
+  isQuote   Boolean  @default(false)
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  tag       String   @unique
+  createdAt DateTime @default(now())
+  bits      Bit[]
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  bit       Bit      @relation(fields: [bitId], references: [id], onDelete: Cascade)
+  bitId     String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now())
 }
