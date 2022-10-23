@@ -1,6 +1,9 @@
+import { styled } from '../styles/bitTheme';
 import { HoverCard } from './HoverCard';
 import { Avatar } from './Avatar';
-import { styled } from '../styles/bitTheme';
+import { Button } from './Button';
+import { Separator } from './Separator';
+import { formatCompactNumber } from '../utils/numbers';
 
 const HoverCardContent = styled('div', {
     alignContent: 'center',
@@ -10,10 +13,7 @@ const HoverCardContent = styled('div', {
 
     '.avatar-card-header': {
         alignItems: 'center',
-        borderBottom: '1px solid $mauve5',
         display: 'flex',
-        marginBottom: '$2',
-        paddingBottom: '$2',
 
         '.avatar-card-name': {
             marginLeft: '$1'
@@ -24,9 +24,7 @@ const HoverCardContent = styled('div', {
     },
 
     '.avatar-card-bio': {
-        borderBottom: '1px solid $mauve5',
-        marginBottom: '$2',
-        paddingBottom: '$2'
+        color: '$mauve12'
     },
 
     '.avatar-card-stats': {
@@ -38,9 +36,27 @@ const HoverCardContent = styled('div', {
             textAlign: 'center',
             width: '50%',
 
-            'span': {
-                color: '$mauve8'
+            '&-header': {
+                color: '$mauve8',
+                fontSize: '$s',
+                marginBottom: '$1',
+            },
+            '&-amount': {
+                fontWeight: 600
+            },
+            '&-suffix': {
+                marginLeft: 1
             }
+        }
+    },
+
+    '.avatar-card-actions': {
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'space-evenly',
+
+        'button': {
+            width: '43%'
         }
     }
 });
@@ -51,13 +67,18 @@ type TProps = {
         id: string;
         avatarUrl: string;
         bio?: string;
+        followerCount?: number;
+        following?: boolean;
+        followingCount?: number;
         name?: string;
+        subscribed?: boolean;
         username: string;
         verified?: boolean;
     }
 }
 
 export function AvatarHoverCard({triggerClass = '', user}: TProps) {
+    const formattedFollowers = formatCompactNumber(user?.followerCount || 0);
     return (
         <HoverCard trigger={<Avatar className={triggerClass} imgUrl={user.avatarUrl}/>}>
             <HoverCardContent>
@@ -72,21 +93,31 @@ export function AvatarHoverCard({triggerClass = '', user}: TProps) {
                         </div>
                     </div>
                 </div>
+                <Separator variant="secondary"/>
                 <div className="avatar-card-bio">
                     {user.bio}
                 </div>
+                <Separator variant="secondary"/>
                 <div className="avatar-card-stats">
                     <div className="avatar-card-stat">
-                        <span>Following</span>
-                        125
+                        <span className="avatar-card-stat-header">Following</span>
+                        <div className="avatar-card-stat-amount">
+                            {user?.followingCount || 0}
+                        </div>
                     </div>
                     <div className="avatar-card-stat">
-                        <span>Followers</span>
-                        150k
+                        <span className="avatar-card-stat-header">Followers</span>
+                        <div className="avatar-card-stat-amount">
+                            {formattedFollowers.amount} {formattedFollowers.suffix && <span className="avatar-card-stat-suffix">{formattedFollowers.suffix}</span>}
+                        </div>
                     </div>
                 </div>
+                <Separator variant="secondary"/>
                 <div className="avatar-card-actions">
-
+                    <Button variant="primary"
+                            outlined={user?.following}>{user?.following ? 'Following' : 'Follow'}</Button>
+                    <Button variant="primary"
+                            outlined={user?.subscribed}>{user?.subscribed ? 'Subscribed' : 'Subscribe'}</Button>
                 </div>
             </HoverCardContent>
         </HoverCard>
