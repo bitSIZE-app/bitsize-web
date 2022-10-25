@@ -13,7 +13,17 @@ dayjs.extend(relativeTime);
 
 const globalStyles = globalCss({
     '*': {
-        fontFamily: 'font-family: "Source Sans Pro", sans-serif'
+        fontFamily: 'Source Sans Pro", sans-serif'
+    },
+    'html': {
+        height: '100%'
+    },
+    'body': {
+        height: '100%',
+    },
+    'h1, h2, h3, h4': {
+        margin: 0,
+        padding: 0
     }
 })
 

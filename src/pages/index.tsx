@@ -1,6 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
+import { LoginForm } from '../components/LoginForm';
+import { styled } from '../styles/bitTheme';
+
+const LoginFormWrapper = styled('div', {
+    height: '100%'
+});
+
 const Home: NextPage = () => {
 
   return (
@@ -10,7 +17,9 @@ const Home: NextPage = () => {
             <meta name="description" content="The bite sized social app with end-to-end encrypted messaging." />
             <link rel="icon" href="/favicon.png" />
         </Head>
-        Login
+        <LoginFormWrapper>
+            <LoginForm />
+        </LoginFormWrapper>
     </>
   );
 };

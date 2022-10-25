@@ -3,7 +3,7 @@ import Head from "next/head";
 import {Layout} from "../components/layout";
 import {BitFeed} from "../components/BitFeed";
 
-const Home: NextPage = () => {
+const Bits: NextPage = () => {
   return (
     <Layout>
         <>
@@ -19,4 +19,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Bits;

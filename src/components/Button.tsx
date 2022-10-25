@@ -1,10 +1,14 @@
 import { styled } from '../styles/bitTheme';
 
 export const Button = styled('button', {
+    alignItems: 'center',
     border: 'none',
     borderRadius: '20px',
     color: '$mauve1',
     cursor: 'pointer',
+    display: 'flex',
+    fontWeight: 600,
+    justifyContent: 'center',
     outline: 'none',
     padding: '$1 $3',
     variants: {
