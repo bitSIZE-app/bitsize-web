@@ -13,7 +13,7 @@ import logo from '../assets/bitSIZE-logo.svg';
 const StyledLoginForm = styled('div', {
     alignItems: 'center',
     display: 'flex',
-    height: '100%',
+    height: '100vh',
     justifyContent: 'center',
     width: '100%'
 });
@@ -66,7 +66,7 @@ export function LoginForm() {
                     Log In
                 </Button>
                 <h4>or</h4>
-                <Button className="google-login" variant="primary" outlined onClick={() => signIn()}>
+                <Button className="google-login" variant="primary" outlined onClick={() => signIn('google',{ callbackUrl: `${window.location.origin}/bits`})}>
                     <FontAwesomeIcon icon={faGoogle} size="xs" /> Google
                 </Button>
             </Form>

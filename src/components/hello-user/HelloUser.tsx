@@ -1,9 +1,9 @@
 import {DotsVerticalIcon} from '@radix-ui/react-icons';
 
-import {styled} from '../styles/bitTheme';
+import {styled} from '../../styles/bitTheme';
 
-import {Avatar} from "./Avatar";
-import { DropdownMenu } from '@components/DropdownMenu';
+import {Avatar} from "../Avatar";
+import { HelloUserDropdown } from './HelloUserDropdown';
 
 const StyledHelloUser = styled('div', {
     alignItems: 'center',
@@ -43,7 +43,7 @@ const MenuButton = styled('div', {
 
 export function HelloUser() {
     return (
-        <DropdownMenu trigger={(
+        <HelloUserDropdown trigger={(
             <StyledHelloUser>
                 <div className="hello-avatar-wrapper">
                     <Avatar className="hello-avatar" imgUrl="https://avatars.dicebear.com/api/adventurer/david.svg"/>

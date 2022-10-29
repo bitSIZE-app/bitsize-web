@@ -10,7 +10,6 @@ import '../styles/globals.css'; // TODO: Remove the important on body->backgroun
 
 import { trpc } from '../utils/trpc';
 import { SessionProvider } from 'next-auth/react';
-import { WithAuth } from '@lib/auth/WithAuth';
 
 dayjs.extend(relativeTime);
 config.autoAddCss = false
@@ -18,12 +17,6 @@ config.autoAddCss = false
 const globalStyles = globalCss({
     '*': {
         fontFamily: 'Source Sans Pro", sans-serif'
-    },
-    'html': {
-        height: '100%'
-    },
-    'body': {
-        height: '100%',
     },
     'h1, h2, h3, h4': {
         margin: 0,
@@ -39,12 +32,7 @@ function MyApp({
 
     return (
         <SessionProvider session={session}>
-            {Component.auth ? (
-                    <WithAuth options={Component.auth}>
-                        <Component {...pageProps} />
-                    </WithAuth>
-                ) :
-                <Component {...pageProps} />}
+            <Component {...pageProps} />
         </SessionProvider>
     );
 };

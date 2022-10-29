@@ -5,7 +5,6 @@ import {Bit} from "./Bit";
 
 const StyledBitFeed = styled('div', {
     height: '100%',
-    overflow: 'hidden',
     width: '100%',
 });
 

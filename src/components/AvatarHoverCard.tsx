@@ -65,7 +65,7 @@ type TProps = {
     triggerClass?: string;
     user: {
         id: string;
-        avatarUrl: string;
+        image: string;
         bio?: string;
         followerCount?: number;
         following?: boolean;
@@ -80,10 +80,10 @@ type TProps = {
 export function AvatarHoverCard({triggerClass = '', user}: TProps) {
     const formattedFollowers = formatCompactNumber(user?.followerCount || 0);
     return (
-        <HoverCard trigger={<Avatar className={triggerClass} imgUrl={user.avatarUrl}/>}>
+        <HoverCard trigger={<Avatar className={triggerClass} imgUrl={user.image}/>}>
             <HoverCardContent>
                 <div className="avatar-card-header">
-                    <Avatar className="avatar-card-avatar" imgUrl={user.avatarUrl}/>
+                    <Avatar className="avatar-card-avatar" imgUrl={user.image}/>
                     <div className="avatar-card-name">
                         <div className="avatar-card-username">
                             @{user.username}

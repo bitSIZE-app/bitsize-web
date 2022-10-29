@@ -8,9 +8,9 @@ const StyledNavItem = styled('div', {
     color: '$mauve12',
     cursor: 'pointer',
     display: 'flex',
-    fontSize: '$l',
+    fontSize: 'calc($l - 4px)',
     fontWeight: '400',
-    padding: '$1',
+    padding: 'calc($1 - 2px) $1',
 
     '&:hover': {
         backgroundColor: '$mauve3',
@@ -37,8 +37,9 @@ type TNavItemProps = {
     icon: ReactElement;
     label: string;
     onClickOverride?: () => void;
+    path?: string;
 }
-export function NavItem ({active, icon, label, onClickOverride}:TNavItemProps) {
+export function NavItem ({active, icon, label, onClickOverride, path}:TNavItemProps) {
     const router = useRouter();
 
     const onNavItemClick = () => {
@@ -47,7 +48,7 @@ export function NavItem ({active, icon, label, onClickOverride}:TNavItemProps) {
             return;
         }
         
-        router.push(`/${label.toLowerCase()}`)
+        router.push(`/${path || label.toLowerCase()}`)
     }
 
     return (

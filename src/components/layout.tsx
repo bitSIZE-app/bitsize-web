@@ -29,17 +29,18 @@ const SidebarContainer = styled('div', {
 });
 
 type TProps = {
-    children: ReactElement
+    children: ReactElement;
+    title: string;
 }
 
-export function Layout({children}: TProps) {
+export function Layout({children, title}: TProps) {
     return (
         <StyledLayout>
             <SidebarContainer>
                 <Sidebar/>
             </SidebarContainer>
             <StyledMain>
-                <PageHeader/>
+                <PageHeader title={title}/>
                 {children}
             </StyledMain>
         </StyledLayout>

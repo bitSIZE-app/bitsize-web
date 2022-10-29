@@ -6,7 +6,7 @@ import { BitFeed } from '@components/BitFeed';
 
 const Bits: NextPage = () => {
     return (
-        <Layout>
+        <Layout title="Bits">
             <>
                 <Head>
                     <title>Home :: bitSIZE :: The bite sized social app</title>

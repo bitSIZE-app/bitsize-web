@@ -1,4 +1,5 @@
 import {Html, Head, Main, NextScript} from 'next/document'
+
 import {getCssText} from "../styles/bitTheme";
 
 export default function Document() {
@@ -7,7 +8,9 @@ export default function Document() {
             <Head>
                 <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
             </Head>
-            <body>
+            <body style={{
+                height:'100%'
+            }}>
                 <Main/>
                 <NextScript/>
             </body>

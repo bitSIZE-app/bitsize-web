@@ -1,12 +1,21 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-import { BellIcon, FrameIcon, HomeIcon, MagnifyingGlassIcon, RocketIcon, TimerIcon } from '@radix-ui/react-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faBell,
+    faClockRotateLeft,
+    faCoins,
+    faCompass,
+    faHouse,
+    faMagnifyingGlass
+} from '@fortawesome/free-solid-svg-icons';
 
 import logo from '../assets/bitSIZE-logo.svg'
 import { styled } from '../styles/bitTheme';
 
 import { NavItem } from './NavItem';
-import { HelloUser } from './HelloUser';
+import { HelloUser } from './hello-user/HelloUser';
 
 const StyledSidebar = styled('div', {
     maxWidth: 240,
@@ -28,18 +37,20 @@ const StyledSidebar = styled('div', {
 });
 
 export function Sidebar() {
+    const router = useRouter();
+
     return (
         <StyledSidebar>
             <nav>
                 <div className="logo">
                     <Image src={logo} width={103} height={16} />
                 </div>
-                <NavItem active={true} icon={<HomeIcon />} label="Home" />
-                <NavItem active={false} icon={<MagnifyingGlassIcon />} label="Search" onClickOverride={() => console.log('open search overlay')} />
-                <NavItem active={false} icon={<FrameIcon />} label="Explore" />
-                <NavItem active={false} icon={<BellIcon />} label="Notifications" />
-                <NavItem active={false} icon={<TimerIcon />} label="Subscriptions" />
-                <NavItem active={false} icon={<RocketIcon />} label="Donations" />
+                <NavItem active={router.pathname === '/bits'} icon={<FontAwesomeIcon icon={faHouse} />} label="Home" />
+                <NavItem active={router.pathname === '/search'} icon={<FontAwesomeIcon icon={faMagnifyingGlass} />} label="Search" onClickOverride={() => console.log('open search overlay')} />
+                <NavItem active={router.pathname === '/explore'} icon={<FontAwesomeIcon icon={faCompass} />} label="Explore" />
+                <NavItem active={router.pathname === '/notifications'} icon={<FontAwesomeIcon icon={faBell} />} label="Notifications" />
+                <NavItem active={router.pathname === '/subscriptions'} icon={<FontAwesomeIcon icon={faClockRotateLeft} />} label="Subscriptions" />
+                <NavItem active={router.pathname === '/donations'} icon={<FontAwesomeIcon icon={faCoins} />} label="Donations" />
                 <HelloUser />
             </nav>
         </StyledSidebar>

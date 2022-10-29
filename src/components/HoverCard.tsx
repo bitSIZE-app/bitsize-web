@@ -41,7 +41,7 @@ const StyledContent = styled(HoverCardPrimitive.Content, {
             '&[data-side="left"]': { animationName: slideRightAndFade },
         },
     },
-    zIndex: 5
+    zIndex: 99
 });
 
 const StyledArrow = styled(HoverCardPrimitive.Arrow, {
@@ -59,9 +59,8 @@ export function HoverCard({children, trigger}:TProps) {
                 {trigger}
             </HoverCardPrimitive.Trigger>
             <HoverCardPrimitive.Portal>
-                <StyledContent side="right">
+                <StyledContent align="start" sideOffset={10}>
                     {children}
-                    <StyledArrow/>
                 </StyledContent>
             </HoverCardPrimitive.Portal>
         </HoverCardPrimitive.Root>

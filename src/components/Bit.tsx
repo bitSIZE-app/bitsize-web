@@ -1,9 +1,7 @@
 import dayjs from 'dayjs';
 
 import {styled} from "../styles/bitTheme";
-import {Avatar} from "./Avatar";
 import { BitMedia } from './BitMedia';
-import { HoverCard } from './HoverCard';
 import { Link } from './Link';
 import { AvatarHoverCard } from './AvatarHoverCard';
 
@@ -74,7 +72,7 @@ type TProps = {
         publishedOn: string;
         author: {
             id: string;
-            avatarUrl: string;
+            image: string;
             bio: string;
             name: string;
             username: string;

@@ -40,9 +40,6 @@ export default NextAuth({
         updateAge: 24 * 60 * 60,
         generateSessionToken: () => randomUUID?.() ?? randomBytes(32).toString('hex')
     },
-    pages: {
-      signIn: '/'
-    },
     callbacks: {
         jwt({token, user}) {
             return token;

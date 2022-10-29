@@ -6,13 +6,20 @@ const StyledPageHeader = styled('div', {
     fontSize: '$m',
     fontWeight: '600',
     padding: '$3 $2',
-    widht: '100%'
+    position: 'sticky',
+    top: 0,
+    width: '100%',
+    zIndex: 10
 });
 
-export function PageHeader () {
+type TProps = {
+    title: string;
+}
+
+export function PageHeader ({ title }:TProps) {
     return (
         <StyledPageHeader>
-            Home
+            {title}
         </StyledPageHeader>
     )
 }
