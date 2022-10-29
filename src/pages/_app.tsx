@@ -2,13 +2,15 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import {globalCss} from '@stitches/react';
+import { globalCss } from '@stitches/react';
 
-import type {AppType} from "next/app";
+import type { ExtendedAppProps } from '@lib/types';
 
-import "../styles/globals.css"; // TODO: Remove the important on body->background color and let selected theme handle it.
+import '../styles/globals.css'; // TODO: Remove the important on body->background color and let selected theme handle it.
 
-import {trpc} from "../utils/trpc";
+import { trpc } from '../utils/trpc';
+import { SessionProvider } from 'next-auth/react';
+import { WithAuth } from '@lib/auth/WithAuth';
 
 dayjs.extend(relativeTime);
 config.autoAddCss = false
@@ -29,9 +31,22 @@ const globalStyles = globalCss({
     }
 })
 
-const MyApp: AppType = ({Component, pageProps}) => {
+function MyApp({
+        Component,
+        pageProps: {session, ...pageProps}
+    }: ExtendedAppProps){
     globalStyles();
-    return <Component {...pageProps} />;
+
+    return (
+        <SessionProvider session={session}>
+            {Component.auth ? (
+                    <WithAuth options={Component.auth}>
+                        <Component {...pageProps} />
+                    </WithAuth>
+                ) :
+                <Component {...pageProps} />}
+        </SessionProvider>
+    );
 };
 
 export default trpc.withTRPC(MyApp);

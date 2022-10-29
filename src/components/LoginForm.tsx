@@ -9,7 +9,6 @@ import { Input } from './Input';
 import { Button } from './Button';
 
 import logo from '../assets/bitSIZE-logo.svg';
-import { Separator } from './Separator';
 
 const StyledLoginForm = styled('div', {
     alignItems: 'center',
@@ -66,9 +65,8 @@ export function LoginForm() {
                 <Button variant="primary">
                     Log In
                 </Button>
-                <Separator variant="secondary" />
                 <h4>or</h4>
-                <Button className="google-login" variant="primary" outlined>
+                <Button className="google-login" variant="primary" outlined onClick={() => signIn()}>
                     <FontAwesomeIcon icon={faGoogle} size="xs" /> Google
                 </Button>
             </Form>

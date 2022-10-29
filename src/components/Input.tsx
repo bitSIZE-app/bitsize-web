@@ -49,7 +49,7 @@ type TProps = {
     value?: string;
 }
 
-export function Input({icon, onChange, placeholder, type, value}: TProps) {
+export function Input({icon, onChange, placeholder, type, value = ''}: TProps) {
     const [focused, setFocused] = useState(false)
     const [val, setVal] = useState(value);
 
