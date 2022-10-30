@@ -1,5 +1,7 @@
-import { styled } from '../styles/bitTheme';
 import { ChangeEvent, ReactElement, useState } from 'react';
+
+import { styled } from '@styles/bitTheme';
+import { classNames } from '@utils/strings';
 
 const StyledInput = styled('div', {
     position: 'relative',
@@ -16,6 +18,14 @@ const StyledInput = styled('div', {
         'svg': {
             color: '$mauve11'
         }
+    },
+
+    '.character-limit': {
+        bottom: -18,
+        color: '$plum8',
+        fontSize: '$xs',
+        position: 'absolute',
+        right: 4
     }
 });
 
@@ -42,6 +52,8 @@ const StyledInputField = styled('input', {
 });
 
 type TProps = {
+    characterLimit?: number;
+    className?: string;
     icon?: ReactElement;
     onChange?: (value: string) => void;
     placeholder?: string;
@@ -49,7 +61,15 @@ type TProps = {
     value?: string;
 }
 
-export function Input({icon, onChange, placeholder, type, value = ''}: TProps) {
+export function Input({
+      characterLimit,
+      className = '',
+      icon,
+      onChange,
+      placeholder,
+      type,
+      value = ''
+  }: TProps) {
     const [focused, setFocused] = useState(false)
     const [val, setVal] = useState(value);
 
@@ -58,7 +78,10 @@ export function Input({icon, onChange, placeholder, type, value = ''}: TProps) {
         onChange && onChange(evt.target.value);
     }
     return (
-        <StyledInput className={focused ? 'input-focused' : ''}>
+        <StyledInput className={classNames([
+            focused ? 'input-focused' : '',
+            className
+        ])}>
             {icon && icon}
             <StyledInputField
                 className={icon ? 'has-icon' : ''}
@@ -67,7 +90,8 @@ export function Input({icon, onChange, placeholder, type, value = ''}: TProps) {
                 onFocus={() => setFocused(true)}
                 placeholder={placeholder}
                 type={type || 'text'}
-                value={val} />
+                value={val}/>
+            {characterLimit && <div className="character-limit">{val.length}/{characterLimit}</div>}
         </StyledInput>
     );
 }

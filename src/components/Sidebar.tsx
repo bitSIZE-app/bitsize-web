@@ -8,7 +8,7 @@ import {
     faCoins,
     faCompass,
     faHouse,
-    faMagnifyingGlass
+    faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 
 import logo from '../assets/bitSIZE-logo.svg'

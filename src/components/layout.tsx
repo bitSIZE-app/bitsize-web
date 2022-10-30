@@ -2,7 +2,7 @@ import {ReactElement} from 'react';
 import {styled} from '../styles/bitTheme';
 
 import {Sidebar} from './Sidebar';
-import {PageHeader} from "./PageHeader";
+import {PageHeader} from "./page-header/PageHeader";
 import { getSession, useSession } from 'next-auth/react';
 import { Session } from 'inspector';
 import { GetServerSideProps } from 'next';

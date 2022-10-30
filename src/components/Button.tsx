@@ -26,6 +26,14 @@ export const Button = styled('button', {
                 '&:hover': {
                     backgroundColor: '$mauve8'
                 }
+            },
+            link: {
+                backgroundColor: 'transparent',
+                color: '$plum8',
+
+                '&:hover': {
+                    color: '$plum11'
+                }
             }
         },
         outlined: {true: {}}

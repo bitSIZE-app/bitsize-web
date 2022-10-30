@@ -3,21 +3,24 @@ import Head from 'next/head';
 
 import { Layout } from '@components/layout';
 import { BitFeed } from '@components/BitFeed';
+import { WithAuth } from '@components/WithAuth';
 
 const Bits: NextPage = () => {
     return (
-        <Layout title="Bits">
-            <>
-                <Head>
-                    <title>Home :: bitSIZE :: The bite sized social app</title>
-                    <meta name="description"
-                          content="The bite sized social app with end-to-end encrypted messaging."/>
-                    <link rel="icon" href="/favicon.png"/>
-                </Head>
+        <WithAuth>
+            <Layout title="Bits">
+                <>
+                    <Head>
+                        <title>Home :: bitSIZE :: The bite sized social app</title>
+                        <meta name="description"
+                              content="The bite sized social app with end-to-end encrypted messaging."/>
+                        <link rel="icon" href="/favicon.png"/>
+                    </Head>
 
-                <BitFeed/>
-            </>
-        </Layout>
+                    <BitFeed/>
+                </>
+            </Layout>
+        </WithAuth>
     );
 };
 
