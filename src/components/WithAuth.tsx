@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { Loader } from '@components/Loader';
 import { styled } from '@styles/bitTheme';
@@ -28,7 +28,7 @@ export function WithAuth({children}:TProps) {
         );
     }
 
-    if (status === 'authenticated' && !!session?.user) {
+    if (!!session?.user) {
         return children;
     }
 }

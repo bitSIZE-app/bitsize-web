@@ -71,8 +71,8 @@ export function Input({
       value = ''
   }: TProps) {
     const [focused, setFocused] = useState(false)
-    const [val, setVal] = useState(value);
-
+    const [val, setVal] = useState('');
+console.log(value)
     const onInputChange = (evt: ChangeEvent) => {
         setVal(evt.target.value);
         onChange && onChange(evt.target.value);
@@ -85,12 +85,13 @@ export function Input({
             {icon && icon}
             <StyledInputField
                 className={icon ? 'has-icon' : ''}
+                maxLength={characterLimit || 524288}
                 onBlur={() => setFocused(false)}
                 onChange={onInputChange}
                 onFocus={() => setFocused(true)}
                 placeholder={placeholder}
                 type={type || 'text'}
-                value={val}/>
+                value={value} />
             {characterLimit && <div className="character-limit">{val.length}/{characterLimit}</div>}
         </StyledInput>
     );
