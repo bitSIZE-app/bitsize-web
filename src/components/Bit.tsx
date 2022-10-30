@@ -1,9 +1,12 @@
 import dayjs from 'dayjs';
 
-import {styled} from "../styles/bitTheme";
+import type { Bit as TBit, User } from '@prisma/client';
+
+import {styled} from "@styles/bitTheme";
+
+import { AvatarHoverCard } from './AvatarHoverCard';
 import { BitMedia } from './BitMedia';
 import { Link } from './Link';
-import { AvatarHoverCard } from './AvatarHoverCard';
 
 const StyledBit = styled('div', {
     backgroundColor: 'white',
@@ -65,25 +68,12 @@ const StyledBit = styled('div', {
     }
 });
 
+interface IBit extends TBit {
+    author: User
+}
+
 type TProps = {
-    bit: {
-        id: string;
-        message: string;
-        publishedOn: string;
-        author: {
-            id: string;
-            image: string;
-            bio: string;
-            name: string;
-            username: string;
-            verified?: boolean;
-        },
-        media: {
-            id?: string;
-            mediaType?: string;
-            mediaUrl?: string;
-        }
-    }
+    bit: IBit
 }
 
 export function Bit({bit}: TProps) {
@@ -98,15 +88,15 @@ export function Bit({bit}: TProps) {
                 <AvatarHoverCard triggerClass="bit-avatar" user={bit.author} />
 
                 <div className="bit-byline">
-                    <Link href={`/bit/${bit.author.username.toLowerCase()}`}>@{bit.author.username}</Link>
-                    <div className="bit-date">{dayjs(bit.publishedOn).fromNow()}</div>
+                    <Link href={`/bit/${bit.author.username ? bit.author.username.toLowerCase() : bit.author.name.toLowerCase()}`}>@{bit.author.username || bit.author.name}</Link>
+                    <div className="bit-date">{dayjs(bit.createdAt).fromNow()}</div>
                 </div>
             </div>
-            <div className="bit-media">
-                {bit.media.id && <BitMedia {...bit.media} />}
-            </div>
+            {/*<div className="bit-media">*/}
+            {/*    {bit.media.id && <BitMedia {...bit.media} />}*/}
+            {/*</div>*/}
             <div className="bit-body">
-                {bit.message}
+                {bit.content}
             </div>
             <div className="bit-actions">
 

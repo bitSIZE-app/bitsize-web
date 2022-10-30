@@ -54,6 +54,8 @@ model User {
   rebits        RecycledBit[]
   followers     Follows[]     @relation("follower")
   following     Follows[]     @relation("following")
+  subscribers   Subscribes[]  @relation("subscriber")
+  subscribing   Subscribes[]  @relation("subscribed")
   role          String?       @default("user")
   isVerified    Boolean       @default(false)
   likes         Like[]
@@ -75,9 +77,19 @@ model Follows {
   followerId  String
   following   User     @relation("follower", fields: [followingId], references: [id])
   followingId String
-  createAt    DateTime @default(now())
+  createdAt   DateTime @default(now())
 
   @@id([followerId, followingId])
+}
+
+model Subscribes {
+  subscriber   User     @relation("subscribed", fields: [subscriberId], references: [id])
+  subscriberId String
+  subscribed   User     @relation("subscriber", fields: [subscribedId], references: [id])
+  subscribedId String
+  crreatedAt   DateTime @default(now())
+
+  @@id([subscriberId, subscribedId])
 }
 
 model Bit {

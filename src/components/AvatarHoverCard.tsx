@@ -1,9 +1,19 @@
-import { styled } from '../styles/bitTheme';
-import { HoverCard } from './HoverCard';
+import type { User } from '@prisma/client';
+
+import { styled } from '@styles/bitTheme';
+import { formatCompactNumber } from '@utils/numbers';
+import { capitalizeWords } from '@utils/strings';
+
 import { Avatar } from './Avatar';
 import { Button } from './Button';
+import { HoverCard } from './HoverCard';
 import { Separator } from './Separator';
-import { formatCompactNumber } from '../utils/numbers';
+import { useSession } from 'next-auth/react';
+
+interface IUser extends User {
+    following: string[],
+    followers: string[]
+}
 
 const HoverCardContent = styled('div', {
     alignContent: 'center',
@@ -63,22 +73,12 @@ const HoverCardContent = styled('div', {
 
 type TProps = {
     triggerClass?: string;
-    user: {
-        id: string;
-        image: string;
-        bio?: string;
-        followerCount?: number;
-        following?: boolean;
-        followingCount?: number;
-        name?: string;
-        subscribed?: boolean;
-        username: string;
-        verified?: boolean;
-    }
+    user: IUser
 }
 
 export function AvatarHoverCard({triggerClass = '', user}: TProps) {
-    const formattedFollowers = formatCompactNumber(user?.followerCount || 0);
+    const formattedFollowers = formatCompactNumber(user?.followers.length);
+
     return (
         <HoverCard trigger={<Avatar className={triggerClass} imgUrl={user.image}/>}>
             <HoverCardContent>
@@ -89,7 +89,7 @@ export function AvatarHoverCard({triggerClass = '', user}: TProps) {
                             @{user.username}
                         </div>
                         <div className="avatar-card-fullname">
-                            {user.name}
+                            {capitalizeWords(user.name)}
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ export function AvatarHoverCard({triggerClass = '', user}: TProps) {
                     <div className="avatar-card-stat">
                         <span className="avatar-card-stat-header">Following</span>
                         <div className="avatar-card-stat-amount">
-                            {user?.followingCount || 0}
+                            {user?.following.length}
                         </div>
                     </div>
                     <div className="avatar-card-stat">

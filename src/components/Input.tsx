@@ -72,7 +72,7 @@ export function Input({
   }: TProps) {
     const [focused, setFocused] = useState(false)
     const [val, setVal] = useState('');
-console.log(value)
+
     const onInputChange = (evt: ChangeEvent) => {
         setVal(evt.target.value);
         onChange && onChange(evt.target.value);

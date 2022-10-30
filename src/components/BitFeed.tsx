@@ -1,7 +1,7 @@
-import {styled} from "../styles/bitTheme";
-import {trpc} from "../utils/trpc";
+import {styled} from "@styles/bitTheme";
+import {trpc} from "@utils/trpc";
 
-import {Bit} from "./Bit";
+import { Bit } from "./Bit";
 
 const StyledBitFeed = styled('div', {
     height: '100%',
@@ -10,11 +10,11 @@ const StyledBitFeed = styled('div', {
 });
 
 export function BitFeed() {
-    const {data} = trpc.bits.getAll.useQuery({ authorId: "1"});
+    const { data } = trpc.bits.getBits.useQuery({});
 
     return (
         <StyledBitFeed>
-            {data?.TEST_FEED.map(item => <Bit key={item.id} bit={item} />)}
+            {data?.map(item => <Bit key={item.id} bit={item} />)}
         </StyledBitFeed>
     )
 }

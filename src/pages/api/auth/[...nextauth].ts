@@ -1,5 +1,5 @@
 import { randomBytes, randomUUID } from 'crypto';
-import NextAuth, { Session } from 'next-auth';
+import NextAuth from 'next-auth';
 import { AppProviders } from 'next-auth/providers';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
@@ -44,7 +44,7 @@ export default NextAuth({
         jwt({token, user}) {
             return token;
         },
-        session({session, token, user}) {
+        async session({session, token, user}) {
             return session;
         },
         async redirect({ url, baseUrl }) {

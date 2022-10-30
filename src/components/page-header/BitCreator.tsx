@@ -34,7 +34,6 @@ export function BitCreator() {
     const addBit = async () => {
         if (inputVal.length > 3) {
             await mutation.mutate({
-                authorId: 'cl9t6yqy50000zm0lxyir6oah',
                 content: inputVal
             });
 

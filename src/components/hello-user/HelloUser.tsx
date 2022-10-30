@@ -1,6 +1,7 @@
-import {DotsVerticalIcon} from '@radix-ui/react-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
-import {styled} from '../../styles/bitTheme';
+import {styled} from '@styles/bitTheme';
 
 import {Avatar} from "../Avatar";
 import { HelloUserDropdown } from './HelloUserDropdown';
@@ -53,7 +54,7 @@ export function HelloUser() {
                     <span>@YoDavidO</span>
                 </div>
                 <MenuButton>
-                    <DotsVerticalIcon/>
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
                 </MenuButton>
             </StyledHelloUser>
         )} />
