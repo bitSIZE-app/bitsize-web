@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
-import { styled } from "@styles/bitTheme";
+
 import { BitCreator } from '@components/page-header/BitCreator';
+import { SearchBar } from '@components/search/SearchBar';
+import { styled } from "@styles/bitTheme";
 
 const StyledPageHeader = styled('div', {
     background: 'white',
@@ -29,7 +31,6 @@ export function PageHeader ({ title }:TProps) {
             <div className="page-title">
                 {title}
             </div>
-            {router.pathname === '/bits' && <BitCreator />}
         </StyledPageHeader>
     )
 }

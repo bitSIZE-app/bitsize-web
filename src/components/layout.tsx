@@ -40,7 +40,6 @@ export function Layout({children, title}: TProps) {
                 <Sidebar/>
             </SidebarContainer>
             <StyledMain>
-                <PageHeader title={title}/>
                 {children}
             </StyledMain>
         </StyledLayout>

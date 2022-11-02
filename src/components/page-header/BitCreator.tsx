@@ -11,6 +11,7 @@ import { useSession } from 'next-auth/react';
 
 const StyledBitCreator = styled('div', {
     alignItems: 'center',
+    backgroundColor: 'white',
     borderBottom: '1px solid $mauve5',
     display: 'flex',
     padding: '$3 $2',

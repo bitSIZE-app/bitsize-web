@@ -46,7 +46,7 @@ const StyledInputField = styled('input', {
     },
 
     '&:focus': {
-        borderColor: '$mauve9',
+        borderColor: '$plum11',
         outline: 'none'
     }
 });

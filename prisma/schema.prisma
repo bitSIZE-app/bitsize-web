@@ -3,7 +3,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  previewFeatures = ["fullTextSearch", "fullTextIndex", "referentialIntegrity"]
 }
 
 datasource db {
@@ -61,6 +61,8 @@ model User {
   likes         Like[]
   accounts      Account[]
   sessions      Session[]
+
+  @@fulltext([email, username, name])
 }
 
 model VerificationToken {

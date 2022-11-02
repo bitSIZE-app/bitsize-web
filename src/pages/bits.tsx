@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { Layout } from '@components/layout';
 import { BitFeed } from '@components/BitFeed';
 import { WithAuth } from '@components/WithAuth';
+import { BitCreator } from '@components/page-header/BitCreator';
 
 const Bits: NextPage = () => {
     return (
@@ -17,6 +18,7 @@ const Bits: NextPage = () => {
                         <link rel="icon" href="/favicon.png"/>
                     </Head>
 
+                    <BitCreator />
                     <BitFeed/>
                 </>
             </Layout>
