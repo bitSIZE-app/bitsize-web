@@ -17,6 +17,7 @@ import { styled } from '../styles/bitTheme';
 import { useSession } from 'next-auth/react';
 import { HelloUser } from './hello-user/HelloUser';
 import { NavItem } from './NavItem';
+import { Button } from '@components/Button';
 
 const StyledSidebar = styled('div', {
     maxWidth: 240,
@@ -34,13 +35,21 @@ const StyledSidebar = styled('div', {
         height: 70,
         marginBottom: '$8',
         padding: '$3 $1'
+    },
+
+    '.login-button': {
+        marginTop: '$8',
+        width: '100%',
+
+        'button': {
+            width: '100%'
+        }
     }
 });
 
 export function Sidebar() {
-    const { data: session } = useSession();
-    
     const router = useRouter();
+    const { data: session } = useSession();
 
     return (
         <StyledSidebar>
@@ -59,6 +68,11 @@ export function Sidebar() {
                         <NavItem active={router.pathname === '/donations'} icon={<FontAwesomeIcon icon={faCoins} />} label="Donations" />
                         <HelloUser />
                     </>
+                )}
+                {!session?.user && (
+                    <div className="login-button">
+                        <Button onClick={() => router.push('/', '/', {})} variant="primary">Log In</Button>
+                    </div>
                 )}
             </nav>
         </StyledSidebar>

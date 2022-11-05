@@ -24,15 +24,14 @@ export const bitsRouter = router({
       })
     )
     .query(async ({ ctx, input }) => {
-      const session = ctx.session;
-
+      const { user } = ctx.session;
+      const { userId } = input;
+      console.log(user.id, userId)
       try {
-        const user = await prisma.user.findUnique({
-          where: input.userId ? ({
-            id: input.userId,
-          }) : ({
-            email: session?.user?.email,
-          }),
+        const foundUser = await prisma.user.findUnique({
+          where: {
+            id: userId || user.id
+          },
           include: {
             following: true,
             followers: true,
@@ -43,8 +42,8 @@ export const bitsRouter = router({
           where: {
             authorId: {
               in: [
-                ...user.following.map((follow) => follow.followingId),
-                user.id,
+                ...foundUser.following.map((follow) => follow.followingId),
+                foundUser.id,
               ],
             },
           },

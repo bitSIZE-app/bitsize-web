@@ -4,8 +4,10 @@ import { Avatar } from '@components/Avatar';
 import { Button } from '@components/Button';
 import { styled } from '@styles/bitTheme';
 import { trpc } from '@utils/trpc';
+import { useSession } from 'next-auth/react';
 
 const StyledUserCard = styled('div', {
+    alignItems: 'center',
     backgroundColor: 'white',
     borderBottom: '1px solid $mauve5',
     display: 'flex',
@@ -15,6 +17,10 @@ const StyledUserCard = styled('div', {
 
     '.user-card-avatar': {
         marginRight: '$1'
+    },
+
+    '.user-card-content': {
+        width: '100%'
     },
 
     '&:hover': {
@@ -33,13 +39,27 @@ type TProps = {
 }
 
 export function UserCard({user}:TProps) {
-    const me = trpc.users.getUser.useQuery();
+    const { data: session } = useSession();
+    const followingQuery = trpc.users.getFollowing.useQuery();
+    const followMutation = trpc.users.followUser.useMutation();
+
     const { id } = user;
-    const following = me.following?.find(item => item.followingId === id);
+    const following = followingQuery.data?.find(item => item.followingId === id);
+    const itsMe = id === session?.user?.id;
+
+    const onFollowClick = async () => {
+        await followMutation.mutate({followingId: id}, {
+            onSuccess: async () => {
+                await followingQuery.refetch();
+            }
+        })
+    }
 
     return (
         <StyledUserCard>
-            <Avatar className="user-card-avatar" imgUrl={user.image} />
+            <div className="user-card-avatar">
+                <Avatar className="user-card-avatar" imgUrl={user.image} />
+            </div>
             <div className="user-card-content">
                 <div className="user-card-header">
                     <div className="user-card-username">@{user.username}</div>
@@ -49,7 +69,16 @@ export function UserCard({user}:TProps) {
                     {user.bio}
                 </div>
             </div>
-            <Button variant={ following ? 'secondary' : 'primary'}>{following ? 'Unfollow' : 'Follow'}</Button>
+            {session?.user && !itsMe && (
+                <div className="user-card-actions">
+                    <Button
+                        onClick={onFollowClick}
+                        outlined={!!following}
+                        variant={ following ? 'secondary' : 'primary'}>
+                            {following ? 'Unfollow' : 'Follow'}
+                    </Button>
+                </div>
+            )}
         </StyledUserCard>
     )
 }

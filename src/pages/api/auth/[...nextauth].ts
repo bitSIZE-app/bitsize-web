@@ -33,7 +33,7 @@ providers.push(
 
 export default NextAuth({
     adapter: PrismaAdapter(prisma),
-    secret: process.env.JWT_SECRET,
+    secret: process.env.NEXTAUTH_URL,
     session: {
         strategy: 'jwt',
         maxAge: 30 * 24 * 60 * 60,
@@ -41,10 +41,16 @@ export default NextAuth({
         generateSessionToken: () => randomUUID?.() ?? randomBytes(32).toString('hex')
     },
     callbacks: {
-        jwt({token, user}) {
+        jwt({token, account, user}) {
+            if (account) {
+                token.accessToken = account.access_token;
+                token.userId = user.id;
+            }
             return token;
         },
         async session({session, token, user}) {
+            session.user.id = token.userId;
+
             return session;
         },
         async redirect({ url, baseUrl }) {

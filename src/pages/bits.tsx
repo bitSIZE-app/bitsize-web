@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { Layout } from '@components/layout';
 import { BitFeed } from '@components/feeds/BitFeed';
 import { WithAuth } from '@components/hoc/WithAuth';
-import { BitCreator } from '@components/page-header/BitCreator';
+import { BitCreator } from '@components/page-headers/BitCreator';
 
 const Bits: NextPage = () => {
     return (

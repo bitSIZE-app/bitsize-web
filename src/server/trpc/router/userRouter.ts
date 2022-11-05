@@ -15,8 +15,10 @@ export const userRouter = router({
                     email
                 },
                 include: {
+                    accounts: true,
                     followers: true,
-                    following: true
+                    following: true,
+                    sessions: true
                 }
             })
         }),
@@ -61,7 +63,7 @@ export const userRouter = router({
         .mutation(async ({ ctx, input}) => {
             const { id } = ctx.session.user;
             const { followingId } = input;
-
+            console.log(id);
             try {
                 const follows = await prisma.follows.findFirst({
                     where: {
