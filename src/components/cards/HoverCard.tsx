@@ -2,7 +2,7 @@ import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { ReactElement } from 'react';
 import { keyframes } from '@stitches/react';
 
-import { styled } from '../styles/bitTheme';
+import { styled } from '../../styles/bitTheme';
 
 const slideUpAndFade = keyframes({
     '0%': { opacity: 0},
@@ -42,10 +42,6 @@ const StyledContent = styled(HoverCardPrimitive.Content, {
         },
     },
     zIndex: 99
-});
-
-const StyledArrow = styled(HoverCardPrimitive.Arrow, {
-    fill: 'white'
 });
 
 type TProps = {

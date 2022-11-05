@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 
 import { Loader } from '@components/Loader';
 import { styled } from '@styles/bitTheme';

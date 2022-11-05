@@ -4,7 +4,7 @@ CREATE TABLE "Example" (
 );
 
 -- CreateTable
-CREATE TABLE "Bit" (
+CREATE TABLE "BitCard" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "message" TEXT NOT NULL,
     "published" BOOLEAN NOT NULL DEFAULT false,

@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 import { Input } from '@components/Input';
 import { styled } from '@styles/bitTheme';
-import { trpc } from '@utils/trpc';
 
 const StyledSearchBar = styled('div', {
     alignItems: 'center',
@@ -17,20 +16,26 @@ const StyledSearchBar = styled('div', {
     '.search-bar-input': {
         width: '100%'
     }
-})
+});
 
-export function SearchBar() {
+type TProps = {
+    onSearchChange: (searchTerm: string) => void;
+}
+
+export function SearchBar({onSearchChange}: TProps) {
     const [searchVal, setSearchVal] = useState('');
-    const { error } = trpc.users.getUser.useQuery({
-        searchTerm: searchVal
-    });
+
+    const onChange = (val: string) => {
+        onSearchChange(val);
+        setSearchVal(val);
+    }
 
     return (
         <StyledSearchBar>
             <Input
                 className="search-bar-input"
                 icon={<FontAwesomeIcon icon={faMagnifyingGlass} />}
-                onChange={setSearchVal}
+                onChange={onChange} // TODO: debounce this so it doesn't run a ton of queries or check to see if the query can be debounced.
                 placeholder={"Search bitSIZE..."}
                 value={searchVal}/>
         </StyledSearchBar>

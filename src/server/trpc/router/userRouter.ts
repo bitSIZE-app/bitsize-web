@@ -1,14 +1,16 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+import type { Follows } from '@prisma/client';
+
 import { protectedProcedure, publicProcedure, router } from '@server/trpc/trpc';
 
 export const userRouter = router({
     getMe: protectedProcedure
-        .query(({ctx}) => {
+        .query(async ({ctx}) => {
             const { email } = ctx.session.user;
 
-            const me = prisma.user.findUnique({
+            return await prisma.user.findUnique({
                 where: {
                     email
                 },
@@ -17,6 +19,20 @@ export const userRouter = router({
                     following: true
                 }
             })
+        }),
+    getFollowing: protectedProcedure
+        .query(async ({ ctx }) => {
+            const { id } = ctx.session.user;
+
+            try {
+                return await prisma.follows.findMany({
+                    where: {
+                        followerId: id
+                    }
+                })
+            } catch (e) {
+                throw new TRPCError(e);
+            }
         }),
     getUser: publicProcedure
         .input(z.object({
@@ -39,5 +55,40 @@ export const userRouter = router({
             } catch (e) {
                 throw new TRPCError(e);
             }
-        })
+        }),
+    followUser: protectedProcedure
+        .input(z.object({ followingId: z.string() }))
+        .mutation(async ({ ctx, input}) => {
+            const { id } = ctx.session.user;
+            const { followingId } = input;
+
+            try {
+                const follows = await prisma.follows.findFirst({
+                    where: {
+                        followerId: id,
+                        followingId
+                    }
+                });
+
+                if (follows) {
+                    return await prisma.follows.delete({
+                        where: {
+                            followerId_followingId: {
+                                followerId: follows.followerId,
+                                followingId: follows.followingId
+                            }
+                        }
+                    });
+                }
+
+                return await prisma.follows.create({
+                    data: {
+                        followingId,
+                        followerId: id
+                    }
+                });
+            } catch (e) {
+                throw new TRPCError(e);
+            }
+        }),
 });

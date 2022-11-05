@@ -4,16 +4,10 @@ import { styled } from '@styles/bitTheme';
 import { formatCompactNumber } from '@utils/numbers';
 import { capitalizeWords } from '@utils/strings';
 
-import { Avatar } from './Avatar';
-import { Button } from './Button';
+import { Avatar } from '../Avatar';
+import { Button } from '../Button';
 import { HoverCard } from './HoverCard';
-import { Separator } from './Separator';
-import { useSession } from 'next-auth/react';
-
-interface IUser extends User {
-    following: string[],
-    followers: string[]
-}
+import { Separator } from '../Separator';
 
 const HoverCardContent = styled('div', {
     alignContent: 'center',
@@ -71,13 +65,19 @@ const HoverCardContent = styled('div', {
     }
 });
 
+interface IUser extends User {
+    following: string[],
+    followers: string[]
+}
+
 type TProps = {
     triggerClass?: string;
     user: IUser
 }
 
 export function AvatarHoverCard({triggerClass = '', user}: TProps) {
-    const formattedFollowers = formatCompactNumber(user?.followers.length);
+    const formattedFollowers = formatCompactNumber(user?.followers?.length || 0);
+    const formattedFollowing = formatCompactNumber(user?.following?.length || 0)
 
     return (
         <HoverCard trigger={<Avatar className={triggerClass} imgUrl={user.image}/>}>
@@ -102,7 +102,7 @@ export function AvatarHoverCard({triggerClass = '', user}: TProps) {
                     <div className="avatar-card-stat">
                         <span className="avatar-card-stat-header">Following</span>
                         <div className="avatar-card-stat-amount">
-                            {user?.following.length}
+                            {formattedFollowing.amount} {formattedFollowing.suffix && <span className="avatar-card-stat-suffix">{formattedFollowing.suffix}</span>}
                         </div>
                     </div>
                     <div className="avatar-card-stat">
@@ -115,9 +115,9 @@ export function AvatarHoverCard({triggerClass = '', user}: TProps) {
                 <Separator variant="secondary"/>
                 <div className="avatar-card-actions">
                     <Button variant="primary"
-                            outlined={user?.following}>{user?.following ? 'Following' : 'Follow'}</Button>
-                    <Button variant="primary"
-                            outlined={user?.subscribed}>{user?.subscribed ? 'Subscribed' : 'Subscribe'}</Button>
+                            outlined={!!user?.following}>{user?.following ? 'Following' : 'Follow'}</Button>
+{/*                    <Button variant="primary"
+                            outlined={user?.subscribed}>{user?.subscribed ? 'Subscribed' : 'Subscribe'}</Button>*/}
                 </div>
             </HoverCardContent>
         </HoverCard>

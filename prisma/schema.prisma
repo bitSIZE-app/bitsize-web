@@ -50,7 +50,7 @@ model User {
   username      String?       @unique
   bio           String?
   createdAt     DateTime      @default(now())
-  bits          Bit[]
+  bits          BitCard[]
   rebits        RecycledBit[]
   followers     Follows[]     @relation("follower")
   following     Follows[]     @relation("following")
@@ -94,7 +94,7 @@ model Subscribes {
   @@id([subscriberId, subscribedId])
 }
 
-model Bit {
+model BitCard {
   id          String        @id @default(cuid())
   author      User?         @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String?
@@ -104,14 +104,16 @@ model Bit {
   tags        Tag[]
   likes       Like[]
   rebits      RecycledBit[]
-  replies     Bit[]         @relation("replies")
-  originalBit Bit?          @relation("replies", fields: [originalId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies     BitCard[]         @relation("replies")
+  originalBit BitCard?          @relation("replies", fields: [originalId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   originalId  String?
+
+  @@fulltext([content])
 }
 
 model RecycledBit {
   id        String   @id @default(cuid())
-  bit       Bit      @relation(fields: [bitId], references: [id], onDelete: Cascade)
+  bit       BitCard      @relation(fields: [bitId], references: [id], onDelete: Cascade)
   bitId     String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
@@ -123,12 +125,12 @@ model Tag {
   id        String   @id @default(cuid())
   tag       String   @unique
   createdAt DateTime @default(now())
-  bits      Bit[]
+  bits      BitCard[]
 }
 
 model Like {
   id        String   @id @default(cuid())
-  bit       Bit      @relation(fields: [bitId], references: [id], onDelete: Cascade)
+  bit       BitCard      @relation(fields: [bitId], references: [id], onDelete: Cascade)
   bitId     String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String

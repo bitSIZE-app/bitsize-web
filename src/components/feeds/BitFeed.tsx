@@ -1,7 +1,9 @@
+import { Bit as TBit, User } from '@prisma/client';
+
 import {styled} from "@styles/bitTheme";
 import {trpc} from "@utils/trpc";
 
-import { Bit } from "./Bit";
+import { BitCard } from "../cards/BitCard";
 
 const StyledBitFeed = styled('div', {
     height: '100%',
@@ -9,12 +11,21 @@ const StyledBitFeed = styled('div', {
     width: '100%',
 });
 
+interface IUser extends User {
+    following: string[],
+    followers: string[]
+}
+
+interface IBit extends TBit {
+    author: IUser
+}
+
 export function BitFeed() {
     const { data } = trpc.bits.getBits.useQuery({});
 
     return (
         <StyledBitFeed>
-            {data?.map(item => <Bit key={item.id} bit={item} />)}
+            {data?.map((item: IBit) => <BitCard key={item.id} bit={item} />)}
         </StyledBitFeed>
     )
 }

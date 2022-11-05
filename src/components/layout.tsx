@@ -1,11 +1,8 @@
 import {ReactElement} from 'react';
-import {styled} from '../styles/bitTheme';
+
+import {styled} from '@styles/bitTheme';
 
 import {Sidebar} from './Sidebar';
-import {PageHeader} from "./page-header/PageHeader";
-import { getSession, useSession } from 'next-auth/react';
-import { Session } from 'inspector';
-import { GetServerSideProps } from 'next';
 
 const StyledLayout = styled('div', {
     display: 'flex',
