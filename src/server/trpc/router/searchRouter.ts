@@ -1,6 +1,8 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+import type { Bit, User } from '@prisma/client';
+
 import { publicProcedure, router } from '../trpc';
 
 export const searchRouter = router({
@@ -14,34 +16,37 @@ export const searchRouter = router({
             const { searchTerm } = input;
 
             try {
-                const users = await prisma.user.findMany({
-                    where: {
-                        email: {
-                            search: `${searchTerm}*`,
+                let users:User[] = [];
+                let bits:Bit[] = [];
+                if (searchTerm) {
+                    users = await prisma.user.findMany({
+                        where: {
+                            email: {
+                                search: `${searchTerm }*`,
+                            },
+                            username: {
+                                search: `${searchTerm}*`,
+                            },
+                            name: {
+                                search: `${searchTerm}*`,
+                            },
                         },
-                        username: {
-                            search: `${searchTerm}*`,
+                    });
+                    bits = await prisma.bit.findMany({
+                        where: {
+                            content: {
+                                search: `${searchTerm}*`,
+                            },
                         },
-                        name: {
-                            search: `${searchTerm}*`,
-                        },
-                    },
-                });
-
-                const bits = await prisma.bit.findMany({
-                    where: {
-                        content: {
-                            search: `${searchTerm}*`,
-                        },
-                    },
-                    include: {
-                        author: true
-                    }
-                });
+                        include: {
+                            author: true
+                        }
+                    });
+                }
 
                 const combinedResults = [];
-                if (users) combinedResults.push(...users);
-                if (bits) combinedResults.push(...bits);
+                !!users && combinedResults.push(...users);
+                !!bits && combinedResults.push(...bits);
                 return combinedResults;
             } catch (error) {
                 throw new TRPCError(error);
