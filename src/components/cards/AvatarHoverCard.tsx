@@ -1,13 +1,15 @@
+import { useSession } from 'next-auth/react';
 import type { User } from '@prisma/client';
 
+import { Avatar } from '@components/Avatar';
+import { Button } from '@components/Button';
+import { Separator } from '@components/Separator';
 import { styled } from '@styles/bitTheme';
 import { formatCompactNumber } from '@utils/numbers';
 import { capitalizeWords } from '@utils/strings';
+import { trpc } from '@utils/trpc';
 
-import { Avatar } from '../Avatar';
-import { Button } from '../Button';
 import { HoverCard } from './HoverCard';
-import { Separator } from '../Separator';
 
 const HoverCardContent = styled('div', {
     alignContent: 'center',
@@ -65,19 +67,21 @@ const HoverCardContent = styled('div', {
     }
 });
 
-interface IUser extends User {
-    following: string[],
-    followers: string[]
-}
-
 type TProps = {
     triggerClass?: string;
-    user: IUser
+    user: User
 }
 
 export function AvatarHoverCard({triggerClass = '', user}: TProps) {
-    const formattedFollowers = formatCompactNumber(user?.followers?.length || 0);
-    const formattedFollowing = formatCompactNumber(user?.following?.length || 0)
+    const { data: session } = useSession();
+    const itsMe = session.user?.id === user.id;
+
+    const followed = trpc.users.getFollowStatus.useQuery({ userId: user?.id });
+    const following = trpc.users.getFollowing.useQuery({ userId: user?.id });
+    const followers = trpc.users.getFollowers.useQuery({ userId: user?.id });
+
+    const formattedFollowers = formatCompactNumber(followers.data?.length || 0);
+    const formattedFollowing = formatCompactNumber(following.data?.length || 0);
 
     return (
         <HoverCard trigger={<Avatar className={triggerClass} imgUrl={user.image}/>}>
@@ -112,13 +116,17 @@ export function AvatarHoverCard({triggerClass = '', user}: TProps) {
                         </div>
                     </div>
                 </div>
-                <Separator variant="secondary"/>
-                <div className="avatar-card-actions">
-                    <Button variant="primary"
-                            outlined={!!user?.following}>{user?.following ? 'Following' : 'Follow'}</Button>
-{/*                    <Button variant="primary"
-                            outlined={user?.subscribed}>{user?.subscribed ? 'Subscribed' : 'Subscribe'}</Button>*/}
-                </div>
+                {!itsMe && (
+                    <>
+                        <Separator variant="secondary"/>
+                        <div className="avatar-card-actions">
+                            <Button variant="primary"
+                                    outlined={!!followed}>{!!followed ? 'Following' : 'Follow'}</Button>
+                            {/*                    <Button variant="primary"
+                                    outlined={user?.subscribed}>{user?.subscribed ? 'Subscribed' : 'Subscribe'}</Button>*/}
+                        </div>
+                    </>
+                )}
             </HoverCardContent>
         </HoverCard>
     )

@@ -68,13 +68,8 @@ const StyledBitCard = styled('div', {
     }
 });
 
-interface IUser extends User {
-    following: string[],
-    followers: string[]
-}
-
 interface IBit extends TBit {
-    author: IUser
+    author: User
 }
 
 type TProps = {

@@ -22,14 +22,30 @@ export const userRouter = router({
                 }
             })
         }),
-    getFollowing: protectedProcedure
-        .query(async ({ ctx }) => {
+    getFollowers: protectedProcedure
+        .input(z.object({ userId: z.string().nullish()}).nullish())
+        .query(async ({ ctx, input }) => {
             const { id } = ctx.session.user;
 
             try {
                 return await prisma.follows.findMany({
                     where: {
-                        followerId: id
+                        followingId: input?.userId || id
+                    }
+                })
+            } catch (e) {
+                throw new TRPCError(e);
+            }
+        }),
+    getFollowing: protectedProcedure
+        .input(z.object({ userId: z.string().nullish()}).nullish())
+        .query(async ({ ctx, input }) => {
+            const { id } = ctx.session.user;
+
+            try {
+                return await prisma.follows.findMany({
+                    where: {
+                        followerId: input?.userId || id
                     }
                 })
             } catch (e) {
@@ -63,7 +79,7 @@ export const userRouter = router({
         .mutation(async ({ ctx, input}) => {
             const { id } = ctx.session.user;
             const { followingId } = input;
-            console.log(id);
+
             try {
                 const follows = await prisma.follows.findFirst({
                     where: {
@@ -93,4 +109,21 @@ export const userRouter = router({
                 throw new TRPCError(e);
             }
         }),
+    getFollowStatus: protectedProcedure
+        .input(z.object({ userId: z.string() }))
+        .query(async ({ctx, input}) => {
+            const { id } = ctx.session.user;
+            const { userId } = input;
+
+            try {
+                return await prisma.follows.findFirst({
+                    where: {
+                        followerId: id,
+                        followingId: userId
+                    }
+                });
+            } catch (e) {
+                throw new TRPCError(e);
+            }
+        })
 });

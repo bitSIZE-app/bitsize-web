@@ -45,7 +45,7 @@ const MenuButton = styled('div', {
 
 export function HelloUser() {
     const me = trpc.users.getMe.useQuery();
-console.log(me);
+
     return (
         <HelloUserDropdown trigger={(
             <StyledHelloUser>

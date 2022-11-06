@@ -1,10 +1,10 @@
+import { useSession } from 'next-auth/react';
 import { User } from '@prisma/client';
 
 import { Avatar } from '@components/Avatar';
 import { Button } from '@components/Button';
 import { styled } from '@styles/bitTheme';
 import { trpc } from '@utils/trpc';
-import { useSession } from 'next-auth/react';
 
 const StyledUserCard = styled('div', {
     alignItems: 'center',
@@ -29,17 +29,13 @@ const StyledUserCard = styled('div', {
     }
 });
 
-interface IUser extends User {
-    following: string[],
-    followers: string[]
-}
-
 type TProps = {
-    user: IUser
+    user: User
 }
 
 export function UserCard({user}:TProps) {
     const { data: session } = useSession();
+
     const followingQuery = trpc.users.getFollowing.useQuery();
     const followMutation = trpc.users.followUser.useMutation();
 

@@ -49,6 +49,9 @@ export const bitsRouter = router({
           },
           include: {
             author: true
+          },
+          orderBy: {
+            createdAt: 'desc'
           }
         });
       } catch (e) {

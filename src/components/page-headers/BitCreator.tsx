@@ -7,7 +7,6 @@ import { Input } from '@components/Input';
 import { styled } from '@styles/bitTheme';
 import { trpc } from '@utils/trpc';
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 
 const StyledBitCreator = styled('div', {
     alignItems: 'center',
@@ -15,7 +14,10 @@ const StyledBitCreator = styled('div', {
     borderBottom: '1px solid $mauve5',
     display: 'flex',
     padding: '$3 $2',
+    position: 'sticky',
+    top: 0,
     width: '100%',
+    zIndex: 99,
 
     '.bit-creator-input': {
         margin: '0 $1',
@@ -28,7 +30,6 @@ const StyledButton = styled(Button, {
 });
 
 export function BitCreator() {
-    const { data: session } = useSession();
     const mutation = trpc.bits.addBit.useMutation();
     const [inputVal, setInputVal] = useState('');
 

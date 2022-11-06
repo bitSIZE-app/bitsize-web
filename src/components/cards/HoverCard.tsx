@@ -41,7 +41,7 @@ const StyledContent = styled(HoverCardPrimitive.Content, {
             '&[data-side="left"]': { animationName: slideRightAndFade },
         },
     },
-    zIndex: 99
+    zIndex: 50
 });
 
 type TProps = {
